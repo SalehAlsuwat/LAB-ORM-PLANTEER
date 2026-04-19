@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% if plant %}Update{% else %}Add{% endif %} Plant</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Name" class="form-control mb-2" value="{{ plant.name }}">
+
+    <textarea name="about" class="form-control mb-2">{{ plant.about }}</textarea>
+
+    <textarea name="used_for" class="form-control mb-2">{{ plant.used_for }}</textarea>
+
+    <input type="file" name="image" class="form-control mb-2">
+
+    <select name="category" class="form-select mb-2">
+        <option value="tree">Tree</option>
+        <option value="flower">Flower</option>
+        <option value="herb">Herb</option>
+    </select>
+
+    <label>
+        <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+        Edible
+    </label>
+
+    <button class="btn btn-primary mt-2">Save</button>
+</form>
+
+{% if error %}
+<p class="text-danger">{{ error }}</p>
+{% endif %}
+
+{% endblock %}

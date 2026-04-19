@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Search Results</h1>
+
+<form class="d-flex" role="search" action="{% url 'plants:search_plant_view' %}" method="GET">
+    <input class="form-control me-2" type="search" name="q" placeholder="Search For Plant">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
+<div class="row">
+    {% for plant in results %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            <img src="{{ plant.image.url }}"/>
+                <div class="card-body">
+                    <a href="/plants/{{ plant.id }}/detail/">
+                        <h5>{{ plant.name }}</h5>
+                        <p>{{ plant.about }}</p>
+                        <p>{{ plant.category }}</p>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section>
+    <div class="hero">
+        <div class="search-box">
+            <h1>Planteer</h1>
+            <h3>Planteer Database For Plants Lovers</h3>
+            <form class="d-flex" role="search" action="{% url 'plants:search_plant_view' %}" method="GET">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search For Plant">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="plant-section">
+        <div class="top-section">
+            <h2>Plants</h2>
+            <h4>Learn more about plants</h4>
+        </div>
+        <div class="more-plants">
+            <p>More</p>
+            <a href="{% url 'plants:all_plants_view' %}"><span class="material-symbols-outlined">arrow_right_alt</span></a>
+        </div>
+
+        
+
+    </div>
+    <div class="row">
+        {% for plant in plants %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            <img src="{{ plant.image.url }}"/>
+                <div class="card-body">
+                    <a href="/plants/{{ plant.id }}/detail/">
+                        <h5>{{ plant.name }}</h5>
+                        <p>{{ plant.about }}</p>
+                        <p>{{ plant.category }}</p>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+{% endblock %}

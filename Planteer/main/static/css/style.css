@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    padding: 60px 90px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header a{
+    text-decoration: none;
+    color: black;
+}
+
+.btn-primary{
+    background-color: black;
+    border: none;
+    padding: 13px 20px;
+    font-size: 20px;
+}
+
+.nav-links{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    font-size: 20px;
+}
+
+footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    bottom: 0;
+    gap: 30rem;
+    border-top: 0.1rem solid black;
+    padding: 20px;
+}
+
+.nav-footer{
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-footer{
+    padding-bottom: 80px;
+}
+
+.fa-brands{
+    font-size: 25px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.hero {
+    height: 500px;
+    background-image: url("../images/plants-hero.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin-top: 60px;
+    border-radius: 15px;
+}
+
+.hero h1{
+    font-size: 80px;
+}
+
+.hero h3{
+    font-size: 60px;
+}
+
+.btn-outline-success{
+    background-color: black;
+    color: white;
+    border:none;
+}
+
+.plant-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 60px;
+}
+
+.all-plants{
+    padding-top: 60px;
+    padding-bottom: 60px;
+}

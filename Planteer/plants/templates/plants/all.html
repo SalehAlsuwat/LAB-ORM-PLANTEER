@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="all-plants">All Plants</h1>
+
+
+<div class="row">
+        {% for plant in plants %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            <img src="{{ plant.image.url }}"/>
+                <div class="card-body">
+                    <a href="/plants/{{ plant.id }}/detail/">
+                        <h5>{{ plant.name }}</h5>
+                        <p>{{ plant.about }}</p>
+                        <p>{{ plant.category }}</p>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+<a href="/plants/new/" class="btn btn-success mt-3">Add Plant</a>
+{% endblock %}
