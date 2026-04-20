@@ -104,3 +104,12 @@ a{
     padding-top: 60px;
     padding-bottom: 60px;
 }
+
+
+.btn-primary:hover{
+    background-color: #198754;
+}
+
+.btn-primary a{
+    color: white;
+}

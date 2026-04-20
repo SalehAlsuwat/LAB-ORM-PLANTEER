@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Search Results</h1>
+<form class="d-flex flex-row gap-2 justify-content-between pt-3" action="{% url 'plants:search_plant_view' %}" method="GET">
 
-<form class="d-flex" role="search" action="{% url 'plants:search_plant_view' %}" method="GET">
-    <input class="form-control me-2" type="search" name="q" placeholder="Search For Plant">
-    <button class="btn btn-outline-success" type="submit">Search</button>
+<h1>Search Results</h1>
+<div class="d-flex flex-row gap-2 pb-4 text-center">
+<select class="form-control" name="category">
+            <option value="">All Categories</option>
+            <option value="tree">Tree</option>
+            <option value="fruit">Fruit</option>
+            <option value="vegetable">Vegetable</option>
+        </select>
+
+        <select class="form-control" name="is_edible">
+            <option value="">Edibility</option>
+            <option value="true">Edible</option>
+            <option value="false">Not Edible</option>
+        </select>
+    </div></form>
+<form class="d-flex flex-column gap-2" action="{% url 'plants:search_plant_view' %}" method="GET">
+    
+        <div class="d-flex flex-row gap-2 pb-3">
+            <input class="form-control" type="search" name="q" placeholder="Search For Plant">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    
 </form>
 
 <div class="row">
