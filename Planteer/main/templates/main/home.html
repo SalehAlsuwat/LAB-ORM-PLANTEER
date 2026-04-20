@@ -34,7 +34,7 @@
         {% for plant in plants %}
         <div class="col-md-4 mb-4">
             <div class="card">
-            <img src="{{ plant.image.url }}"/>
+            <img src="{{ plant.image.url }}" class="card-img-top" >
                 <div class="card-body">
                     <a href="/plants/{{ plant.id }}/detail/">
                         <h5>{{ plant.name }}</h5>

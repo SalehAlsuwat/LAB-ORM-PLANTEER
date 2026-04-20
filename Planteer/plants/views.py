@@ -57,8 +57,8 @@ def add_plant_view(request:HttpRequest):
 
     return render(request, 'plants/form.html')
 
-def update_plant_view(request:HttpRequest, id):
-    plant = get_object_or_404(Plant, id=id)
+def update_plant_view(request:HttpRequest, plant_id):
+    plant = get_object_or_404(Plant, id=plant_id)
 
     if request.method == 'POST':
         plant.name = request.POST.get('name')
@@ -71,16 +71,16 @@ def update_plant_view(request:HttpRequest, id):
             plant.image = request.FILES.get('image')
 
         plant.save()
-        return redirect('plant_detail', id=plant.id)
+        return redirect('plant_detail', id=plant_id)
 
     return render(request, 'plants/form.html', {'plant': plant})
 
-def delete_plant_view(request:HttpRequest, id):
-    plant = get_object_or_404(Plant, id=id)
+def delete_plant_view(request:HttpRequest, plant_id):
+    plant = get_object_or_404(Plant, id=plant_id)
 
     if request.method == 'POST':
         plant.delete()
-        return redirect('all_plants')
+        return redirect('plants:all_plants_view')
 
     return render(request, 'plants/delete.html', {'plant': plant})
 

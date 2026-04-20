@@ -17,6 +17,15 @@
     {% endif %}
 </p>
 
+<div class="mb-3">
+    <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-warning">Edit</a>
+
+    <form action="{% url 'plants:delete_plant_view' plant.id %}" method="POST" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger"><a href="/plants/{{ plant.id }}/delete/">Delete</a></button>
+    </form>
+</div>
+
 
 
 <h3>Related Plants</h3>
@@ -26,7 +35,7 @@
             <div class="card">
             <img src="{{ plant.image.url }}"/>
                 <div class="card-body">
-                    <a href="/plants/{{ plant.id }}/detail/">
+                    <a href="/plants/{{ plant_id }}/detail/">
                         <h5>{{ plant.name }}</h5>
                         <p>{{ plant.about }}</p>
                         <p>{{ plant.category }}</p>
