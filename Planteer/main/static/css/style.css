@@ -4,10 +4,22 @@
     box-sizing: border-box;
 }
 
-body{
-    padding: 60px 90px;
+html, body {
+    height: 100%;
     margin: 0;
 }
+
+body{
+    padding: 60px 90px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
 
 header {
     display: flex;
@@ -41,7 +53,6 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    bottom: 0;
     gap: 30rem;
     border-top: 0.1rem solid black;
     padding: 20px;
@@ -65,7 +76,7 @@ a{
     color: black;
 }
 
-.hero {
+.hero, .img {
     height: 500px;
     background-image: url("../images/plants-hero.jpg");
     background-size: cover;
@@ -136,3 +147,4 @@ a{
     flex-direction: row;
     gap: 0.5rem;
 }
+
