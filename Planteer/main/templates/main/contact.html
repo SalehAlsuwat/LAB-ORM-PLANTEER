@@ -2,17 +2,28 @@
 
 {% block content %}
 <h1>Contact Us</h1>
+<h4>Subheading for description or instructions</h4>
 
-<form method="POST">
-    {% csrf_token %}
+<div>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="d-flex flex-col gap-2">    
+                <input type="text" name="first_name" placeholder="First Name" class="form-control mb-2 ">
+                <input type="text" name="last_name" placeholder="Last Name" class="form-control mb-2">
+            </div>
+            <input type="email" name="email" placeholder="Email" class="form-control mb-2">
 
-    <input type="text" name="first_name" placeholder="First Name" class="form-control mb-2">
-    <input type="text" name="last_name" placeholder="Last Name" class="form-control mb-2">
-    <input type="email" name="email" placeholder="Email" class="form-control mb-2">
+            <textarea name="message" class="form-control mb-2" placeholder="Message..."></textarea>
 
-    <textarea name="message" class="form-control mb-2"></textarea>
+            <button class="btn btn-success form-control mb-3">Send</button>
+        </form>
+    </div>
 
-    <button class="btn btn-success">Send</button>
-</form>
+    <div>
+    </div>
+</div>
+
 
 {% endblock %}

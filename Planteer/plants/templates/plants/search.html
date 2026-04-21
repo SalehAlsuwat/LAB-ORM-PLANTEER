@@ -28,12 +28,12 @@
 </form>
 
 <div class="row">
-    {% for plant in results %}
+        {% for plant in results %}
         <div class="col-md-4 mb-4">
             <div class="card">
-            <img src="{{ plant.image.url }}"/>
                 <div class="card-body">
-                    <a href="/plants/{{ plant.id }}/detail/">
+                    <a href="/plants/{{ plant_id }}/detail/">
+                        <img src="{{ plant.image.url }}" />
                         <h5>{{ plant.name }}</h5>
                         <p>{{ plant.about }}</p>
                         <p>{{ plant.category }}</p>

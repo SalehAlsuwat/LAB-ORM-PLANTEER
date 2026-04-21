@@ -1,49 +1,81 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ plant.name }}</h1>
+<section class="d-flex flex-row">
+    <div class="img-plant">
+        <img src="{{ plant.image.url }}" class="img-fluid mb-3">
+    </div>
 
-<img src="{{ plant.image.url }}" class="img-fluid mb-3">
+    <div class="info-plant">
+        <h1>{{ plant.name }}</h1>
+        <p><strong>About:</strong> {{ plant.about }}</p>
+        <p><strong>Used For:</strong> {{ plant.used_for }}</p>
+        <p><strong>Category:</strong> {{ plant.category }}</p>
 
-<p><strong>About:</strong> {{ plant.about }}</p>
-<p><strong>Used For:</strong> {{ plant.used_for }}</p>
-<p><strong>Category:</strong> {{ plant.category }}</p>
-
-<p>Is edible: 
-    {% if plant.is_edible %}
-    <p class="text-success">yes</p>
-    {% else %}
-    <p class="text-danger">No</p>
-    {% endif %}
-</p>
-
-<div class="mb-3">
+        <p><strong>Is edible: </strong>
+            {% if plant.is_edible %}
+            Yes
+            {% else %}
+            No
+            {% endif %}
+        </p>
+        <div class="mb-3">
     <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-warning">Edit</a>
 
     <form action="{% url 'plants:delete_plant_view' plant.id %}" method="POST" style="display:inline;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger"><a href="/plants/{{ plant.id }}/delete/">Delete</a></button>
+        <button type="submit" class="btn btn-danger"><a href="/plants/{{plant.id}}/delete/">Delete</a></button>
     </form>
 </div>
+    </div>
+    
+</section>
+
+
+<hr>
+
+<h3>Comments</h3>
+<div class="d-flex flex-column gap-3 pb-4">
+    {% for review in reviews %}
+        <div class="d-flex flex-column shadow p-2">
+            <h4>{{review.name}}</h4>
+            <p>{{review.comment}}</p>
+            <p class="text-muted">{{review.created_at}}</p>
+        </div>
+    {% endfor %}
+</div>
+
+<h3>Add Comment</h3>
+<form  class="d-flex flex-column gap-2 pb-4" action="{% url 'plants:add_review_view' plant.id %} " method="post">
+    {% csrf_token %}
+    <input class="form-control" name="name" required minlength="3">
+    <textarea  class="form-control" name="comment" required minlength="3" placeholder="comment..."></textarea>
+
+    <input type="submit" class="btn btn-primary" value="Add review" />
+</form>
+
+
+
 
 
 
 <h3>Related Plants</h3>
 <div class="row">
     {% for p in related %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-            <img src="{{ plant.image.url }}"/>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            
                 <div class="card-body">
-                    <a href="/plants/{{ plant_id }}/detail/">
-                        <h5>{{ plant.name }}</h5>
-                        <p>{{ plant.about }}</p>
-                        <p>{{ plant.category }}</p>
+                    <a href="/plants/{{ p.id }}/detail/">
+                        <img src="{{ p.image.url }}"/>
+                        <h5>{{ p.name }}</h5>
+                        <p>{{ p.about }}</p>
+                        <p>{{ p.category }}</p>
                     </a>
                     
                 </div>
             </div>
-        </div>
-        {% endfor %}
+    </div>
+    {% endfor %}
     </div>
 {% endblock %}

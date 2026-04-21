@@ -6,6 +6,7 @@
 
 body{
     padding: 60px 90px;
+    margin: 0;
 }
 
 header {
@@ -112,4 +113,26 @@ a{
 
 .btn-primary a{
     color: white;
+}
+
+.card{
+    height: 410px;
+}
+
+.card-body{
+    height: 410px;
+        background-position: center;
+
+}
+
+.card-body img{
+    height: 270px;
+    background-position: center;
+    
+}
+
+.more-plants a{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
 }

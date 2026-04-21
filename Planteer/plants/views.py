@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpRequest, HttpResponse
-from .models import Plant
+from .models import Plant, Review
 # Create your views here.
 
 def all_plants_view(request:HttpRequest):
@@ -24,9 +24,12 @@ def plant_detail_view(request: HttpRequest, plant_id):
         category=plant.category
     ).exclude(id=plant_id)[0:3]
 
+    reviews = Review.objects.filter(plant=plant)
+
     return render(request, 'plants/detail.html', {
         'plant': plant,
-        'related': related
+        'related': related,
+        'reviews': reviews
     })
     
 def add_plant_view(request:HttpRequest):
@@ -95,3 +98,12 @@ def search_plant_view(request:HttpRequest):
         'results': results,
         'query': query
     })
+
+def add_review_view(request:HttpRequest, plant_id):
+
+    if request.method == "POST":
+        plant_object = Plant.objects.get(id=plant_id)
+        new_review = Review(plant=plant_object,name=request.POST["name"], comment=request.POST["comment"])
+        new_review.save()
+
+    return redirect("plant:plant_detail_view", id=plant_id)

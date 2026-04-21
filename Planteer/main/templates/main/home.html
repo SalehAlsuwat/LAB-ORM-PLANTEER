@@ -23,8 +23,8 @@
             <h4>Learn more about plants</h4>
         </div>
         <div class="more-plants">
-            <p>More</p>
-            <a href="{% url 'plants:all_plants_view' %}"><span class="material-symbols-outlined">arrow_right_alt</span></a>
+            
+            <a href="{% url 'plants:all_plants_view' %}"><p>More</p><span class="material-symbols-outlined">arrow_right_alt</span></a>
         </div>
 
         
@@ -34,9 +34,9 @@
         {% for plant in plants %}
         <div class="col-md-4 mb-4">
             <div class="card">
-            <img src="{{ plant.image.url }}" class="card-img-top" >
                 <div class="card-body">
                     <a href="/plants/{{ plant.id }}/detail/">
+                        <img src="{{ plant.image.url }}" />
                         <h5>{{ plant.name }}</h5>
                         <p>{{ plant.about }}</p>
                         <p>{{ plant.category }}</p>
