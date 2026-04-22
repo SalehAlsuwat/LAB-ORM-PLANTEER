@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpRequest, HttpResponse
-from .models import Plant, Review
+from .models import Plant, Review, Country
 # Create your views here.
 
 def all_plants_view(request:HttpRequest):
     plants = Plant.objects.all()
+    country_id = request.GET.get('country')
 
     category = request.GET.get('category')
     edible = request.GET.get('is_edible')
@@ -15,7 +16,15 @@ def all_plants_view(request:HttpRequest):
     if edible == 'true':
         plants = plants.filter(is_edible = True)
 
-    return render(request, 'plants/all.html', {'plants': plants})
+    if country_id:
+        plants = Plant.objects.filter(countries__id=country_id)
+    else:
+        plants = Plant.objects.all()
+
+    countries = Country.objects.all()
+
+
+    return render(request, 'plants/all.html', {'plants': plants, 'countries': countries})
 
 def plant_detail_view(request: HttpRequest, plant_id):
     plant = get_object_or_404(Plant, id=plant_id)
@@ -32,8 +41,9 @@ def plant_detail_view(request: HttpRequest, plant_id):
         'reviews': reviews
     })
     
-def add_plant_view(request:HttpRequest):
-    if request.method == 'POST':
+
+def add_plant_view(request):
+    if request.method == "POST":
         name = request.POST.get('name')
         about = request.POST.get('about')
         used_for = request.POST.get('used_for')
@@ -41,13 +51,8 @@ def add_plant_view(request:HttpRequest):
         is_edible = request.POST.get('is_edible') == 'on'
         image = request.FILES.get('image')
 
-        # Validation
-        if not name or not about:
-            return render(request, 'plants/form.html', {
-                'error': 'Name and About are required!'
-            })
-
-        Plant.objects.create(
+        # 🔥 إنشاء النبات أولاً
+        plant = Plant.objects.create(
             name=name,
             about=about,
             used_for=used_for,
@@ -56,9 +61,16 @@ def add_plant_view(request:HttpRequest):
             image=image
         )
 
+        # 🔥 بعدها تربط الدول
+        countries_ids = request.POST.getlist('countries')
+        plant.countries.set(countries_ids)
+
         return redirect('plants:all_plants_view')
 
-    return render(request, 'plants/form.html')
+    countries = Country.objects.all()
+    return render(request, 'plants/form.html', {
+        'countries': countries
+    })
 
 def update_plant_view(request:HttpRequest, plant_id):
     plant = get_object_or_404(Plant, id=plant_id)
@@ -107,3 +119,10 @@ def add_review_view(request:HttpRequest, plant_id):
         new_review.save()
 
     return redirect("plant:plant_detail_view", id=plant_id)
+
+def country_plants_view(request, country_id):
+    country = get_object_or_404(Country, id=country_id)
+
+    plants = Plant.objects.filter(countries=country)
+
+    return render(request, 'plants/country_plants.html', {'country': country, 'plants': plants})

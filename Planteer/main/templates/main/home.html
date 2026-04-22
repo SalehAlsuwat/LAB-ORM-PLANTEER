@@ -20,7 +20,7 @@
     <div class="plant-section">
         <div class="top-section">
             <h2>Plants</h2>
-            <h4>Learn more about plants</h4>
+            <h4 class="text-muted">Learn more about plants</h4>
         </div>
         <div class="more-plants">
             
@@ -30,23 +30,9 @@
         
 
     </div>
-    <div class="row">
-        {% for plant in plants %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <a href="/plants/{{ plant.id }}/detail/">
-                        <img src="{{ plant.image.url }}" />
-                        <h5>{{ plant.name }}</h5>
-                        <p>{{ plant.about }}</p>
-                        <p>{{ plant.category }}</p>
-                    </a>
-                    
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    
+    {% include 'plants/card_plants.html' %}
+
 </section>
 
 

@@ -23,6 +23,7 @@ class Plant(models.Model):
     category = models.CharField(max_length=20, choices=TextChoices.choices)
     is_edible = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    countries = models.ManyToManyField('Country', related_name='plants')
 
     def __str__(self):
         return self.name
@@ -33,3 +34,14 @@ class Review(models.Model):
     name = models.CharField(max_length=1024)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+
+
+class Country(models.Model):
+    name = models.CharField(max_length=32)
+    flag = models.ImageField(upload_to='media/')
+    
+    def __str__(self):
+        return self.name

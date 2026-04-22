@@ -77,8 +77,8 @@ a{
 }
 
 .hero, .img {
-    height: 500px;
-    background-image: url("../images/plants-hero.jpg");
+    height: 600px;
+    background-image: url("../images/element5-digital-z6i_UCBuu5Q-unsplash.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -127,19 +127,25 @@ a{
 }
 
 .card{
-    height: 410px;
+    height: auto;
 }
 
 .card-body{
-    height: 410px;
-        background-position: center;
+    height: 450px;
+        
 
 }
 
 .card-body img{
     height: 270px;
-    background-position: center;
     
+}
+
+.plant-img{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-items: start;
 }
 
 .more-plants a{
@@ -148,3 +154,12 @@ a{
     gap: 0.5rem;
 }
 
+a:hover{
+    color: #000000;
+}
+
+.section-flag{
+    background-color: #00000025;
+    border-radius: 50px;
+    padding: 4px;
+}

@@ -1,0 +1,29 @@
+<div class="row">
+        {% for plant in plants %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="text-center mb-3">
+                        <img src="{{ plant.image.url }}" class="plant-img-url"/>
+                    </div>
+
+                    <a href="/plants/{{ plant.id }}/detail/" class="text-start d-block text-decoration-none text-dark">
+                        <h5>{{ plant.name }}</h5>
+                        <p>{{ plant.about }}</p>
+                        <p>{{ plant.category }}</p>
+                    </a>
+
+                    <div class="mt-3 text-start">
+                        {% for country in plant.countries.all %}
+                            <a href="{% url 'plants:country_plants_view' country.id %}" class="badge bg-success text-decoration-none me-1">
+                                {{ country.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>

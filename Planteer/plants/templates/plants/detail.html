@@ -8,17 +8,29 @@
 
     <div class="info-plant">
         <h1>{{ plant.name }}</h1>
-        <p><strong>About:</strong> {{ plant.about }}</p>
-        <p><strong>Used For:</strong> {{ plant.used_for }}</p>
-        <p><strong>Category:</strong> {{ plant.category }}</p>
+        <h4 class="text-muted">{{ plant.category }}</h4>
+        <p>{{ plant.about }}</p>
+        <p><strong>Native to:</strong></p>
 
-        <p><strong>Is edible: </strong>
+            <div class="d-flex flex-wrap gap-2">
+                {% for c in plant.countries.all %}
+                    <div class="section-flag d-flex align-items-center gap-1 mb-4">
+                        {% if c.flag %}
+                            <img src="{{ c.flag.url }}" width="25" height="25" style="border-radius: 50%;">
+                        {% endif %}
+                        <small style="font-size: 16px;"><a href="{% url 'plants:country_plants_view' c.id %}">{{ c.name }}</a></small>
+                    </div>
+                {% endfor %}
+            </div>
+
+        <p><strong>Is Edible: </strong>
             {% if plant.is_edible %}
             Yes
             {% else %}
             No
             {% endif %}
         </p>
+        <p><strong>Used For:</strong><br> {{ plant.used_for }}</p>
         <div class="mb-3">
     <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-warning">Edit</a>
 
@@ -48,10 +60,10 @@
 <h3>Add Comment</h3>
 <form  class="d-flex flex-column gap-2 pb-4" action="{% url 'plants:add_review_view' plant.id %} " method="post">
     {% csrf_token %}
-    <input class="form-control" name="name" required minlength="3">
+    <input class="form-control" name="name" required minlength="3" placeholder="Name">
     <textarea  class="form-control" name="comment" required minlength="3" placeholder="comment..."></textarea>
 
-    <input type="submit" class="btn btn-primary" value="Add review" />
+    <button type="submit" class="btn btn-primary"><a href="/plants/{{plant.id}}/detail/">Add review</a></button>
 </form>
 
 
@@ -60,22 +72,6 @@
 
 
 <h3>Related Plants</h3>
-<div class="row">
-    {% for p in related %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            
-                <div class="card-body">
-                    <a href="/plants/{{ p.id }}/detail/">
-                        <img src="{{ p.image.url }}"/>
-                        <h5>{{ p.name }}</h5>
-                        <p>{{ p.about }}</p>
-                        <p>{{ p.category }}</p>
-                    </a>
-                    
-                </div>
-            </div>
-    </div>
-    {% endfor %}
-    </div>
+    {% include 'plants/card_plants.html' %}
+
 {% endblock %}

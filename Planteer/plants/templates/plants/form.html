@@ -20,12 +20,32 @@
         <option value="herb">Herb</option>
     </select>
 
+    <h6>Countries</h6>
+
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+        {% for country in countries %}
+            <div class="form-check">
+                <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    name="countries" 
+                    value="{{ country.id }}"
+                    id="country{{ country.id }}"
+                >
+                <label class="form-check-label" for="country{{ country.id }}">
+                    {{ country.name }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <h6  class="mt-4">Edible</h6>
     <label>
-        <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+        <input type="checkbox" class="form-check-input" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
         Edible
     </label>
-
-    <button class="btn btn-primary m-3"><a href="/plants/{{plant.id}}/detail/">Save</a></button>
+    <br>
+    <button class="btn btn-primary mt-4 form-control"><a href="/plants/{{plant.id}}/detail/">Save</a></button>
 </form>
 
 {% if error %}
