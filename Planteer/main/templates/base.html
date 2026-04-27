@@ -20,7 +20,9 @@
         <div class="nav-links">
             <a href="/plants/all/">All Plants</a>
             <a href="/contact/">Contact Us</a>
+            {% if request.user.is_staff %}
             <a href="/plants/new/"><button class="btn btn-primary">Add Plant</button></a>
+            {% endif %}
         </div>
         <!-- Example split danger button -->
         {% if request.user.is_authenticated %}

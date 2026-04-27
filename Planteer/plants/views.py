@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpRequest, HttpResponse
-from .models import Plant, Review, Country
+from .models import Plant, Review, Country, User
 from django.contrib import messages
 
 # Create your views here.
@@ -45,6 +45,11 @@ def plant_detail_view(request: HttpRequest, plant_id):
     
 
 def add_plant_view(request):
+
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home_view")
+
     if request.method == "POST":
         name = request.POST.get('name')
         about = request.POST.get('about')
@@ -75,6 +80,11 @@ def add_plant_view(request):
     })
 
 def update_plant_view(request:HttpRequest, plant_id):
+    
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home_view")
+    
     plant = get_object_or_404(Plant, id=plant_id)
 
     if request.method == 'POST':
@@ -93,6 +103,11 @@ def update_plant_view(request:HttpRequest, plant_id):
     return render(request, 'plants/form.html', {'plant': plant})
 
 def delete_plant_view(request:HttpRequest, plant_id):
+
+    if not request.user.is_staff:
+        messages.warning(request, "only staff can add plants", "alert-warning")
+        return redirect("main:home_view")
+
     plant = get_object_or_404(Plant, id=plant_id)
 
     if request.method == 'POST':
