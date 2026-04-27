@@ -49,22 +49,25 @@
 <h3>Comments</h3>
 <div class="d-flex flex-column gap-3 pb-4">
     {% for review in reviews %}
-        <div class="d-flex flex-column shadow p-2">
-            <h4>{{review.name}}</h4>
+        <div class="d-flex flex-column shadow p-2 rounded " style="border: solid #000000;">
+            <h4>{{review.user.first_name}} {{review.user.last_name}}</h4>
             <p>{{review.comment}}</p>
             <p class="text-muted">{{review.created_at}}</p>
         </div>
     {% endfor %}
 </div>
 
+
+{% if request.user.is_authenticated %}
 <h3>Add Comment</h3>
 <form  class="d-flex flex-column gap-2 pb-4" action="{% url 'plants:add_review_view' plant.id %} " method="post">
     {% csrf_token %}
-    <input class="form-control" name="name" required minlength="3" placeholder="Name">
     <textarea  class="form-control" name="comment" required minlength="3" placeholder="comment..."></textarea>
 
     <button type="submit" class="btn btn-primary"><a href="/plants/{{plant.id}}/detail/">Add review</a></button>
 </form>
+
+{% endif %}
 
 
 

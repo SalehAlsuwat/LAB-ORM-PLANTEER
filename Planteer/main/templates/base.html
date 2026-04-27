@@ -24,7 +24,7 @@
         </div>
         <!-- Example split danger button -->
         {% if request.user.is_authenticated %}
-        <h6>Welcome {{ request.user.username }},<a class="nav-link" href="{% url 'accounts:log_out' %}">Log out</a></h6>
+        <h6>Welcome {{ request.user.username }},<a class="nav-link" href="{% url 'accounts:log_out' %}?next={{request.path}}">Log out</a></h6>
          {% else %}
         <div class="btn-group">
         <a href="{% url 'accounts:sign_in' %}"><button type="button" class="btn btn-primary">Sign in</button></a>
@@ -32,8 +32,8 @@
             <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}">Sign Up</a></li>
-            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}">Sign In</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:sign_up' %}?next={{request.path}}">Sign Up</a></li>
+            <li><a class="dropdown-item" href="{% url 'accounts:sign_in' %}?next={{request.path}}">Sign In</a></li>
         </ul>
         </div>
         {% endif %}

@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpRequest, HttpResponse
 from .models import Plant, Review, Country
+from django.contrib import messages
+
 # Create your views here.
 
 def all_plants_view(request:HttpRequest):
@@ -113,10 +115,16 @@ def search_plant_view(request:HttpRequest):
 
 def add_review_view(request:HttpRequest, plant_id):
 
+    if not request.user.is_authenticated:
+        messages.error(request, "Only registered user can add review", "alert-danger")
+        return redirect("accounts:sign_in")
+
     if request.method == "POST":
         plant_object = Plant.objects.get(id=plant_id)
-        new_review = Review(plant=plant_object,name=request.POST["name"], comment=request.POST["comment"])
+        new_review = Review(plant=plant_object,user=request.user, comment=request.POST["comment"])
         new_review.save()
+
+        messages.success(request, "Added Review successfully", "alert-success")
 
     return redirect("plant:plant_detail_view", id=plant_id)
 

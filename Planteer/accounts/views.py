@@ -13,7 +13,7 @@ def sign_up(request:HttpRequest):
             new_user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             new_user.save() 
             messages.success(request, "Registered User Successfuly", "alert-success")
-            return redirect("accounts:sign_in")
+            return redirect(request.GET.get("next", "/"))
         except Exception as e:
             print(e)
 
@@ -41,4 +41,4 @@ def log_out(request:HttpRequest):
     logout(request)
     messages.success(request, "Logged out successsfully", "alert-warning")
 
-    return redirect("main:home_view")
+    return redirect(request.GET.get("next", "/"))
